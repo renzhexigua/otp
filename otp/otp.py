@@ -7,6 +7,7 @@ import struct as _struct
 import hashlib as _hashlib
 import warnings as _warnings
 from _operator import _compare_digest
+from functools import wraps as _wraps
 
 _warnings.simplefilter('always', UserWarning)
 
@@ -40,6 +41,7 @@ class OTPAuth():
     def _incrby(func):
         """Decorator: implement auto-increment.
         """
+        @_wraps(func)
         def _warpper(*args, **kargs):
             ret = func(*args, **kargs)
             args[0].moving_factor += 1
